@@ -36,7 +36,7 @@ const UserAvatar = ({ user, menuContent = false }: AvatarProps) => {
 			<Avatar className={avatarOnMenuContent}>
 				<AvatarImage src="https://github.com/shadcn.png" alt={name} />
 				<AvatarFallback className="bg-yellow-500 text-yellow-900 text-sm font-bold">
-					{user.name[0]}
+					{user.name?.[0]?.toUpperCase() || '?'}
 				</AvatarFallback>
 			</Avatar>
 

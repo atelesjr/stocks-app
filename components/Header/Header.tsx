@@ -5,7 +5,7 @@ import UserDropdown from '../UserDropdown/UserDropdown';
 
 const Header = () => {
 	return (
-		<header className="stick top-0 header">
+		<header className="sticky top-0 header">
 			<div className="container header-wrapper">
 				<Link href="/">
 					<Image
