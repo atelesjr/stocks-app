@@ -9,10 +9,7 @@ const useTradingViewWidget = (
 	height: number = 600
 ) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
-	const configString = useMemo(
-		() => JSON.stringify(config),
-		[JSON.stringify(config)]
-	);
+	const configString = useMemo(() => JSON.stringify(config), [config]);
 
 	// build a proper widget container element (use `class` for innerHTML)
 	const graphDiv = `<div class="tradingview-widget-container__widget" style="width: 100%; height: ${height}px;"></div>`;
