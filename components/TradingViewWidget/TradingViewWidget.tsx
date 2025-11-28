@@ -23,10 +23,11 @@ const TradingViewWidget = ({
 
 	return (
 		<div
-			className="tradingview-widget-container"
+			className={`tradingview-widget-container ${className ?? ''}`}
 			ref={containerRef}
 			style={{ height: '100%', width: '100%' }}
 		>
+			{title && <h2>{title}</h2>}
 			<div
 				className="tradingview-widget-container__widget"
 				style={{ height: 'calc(100% - 32px)', width: '100%' }}

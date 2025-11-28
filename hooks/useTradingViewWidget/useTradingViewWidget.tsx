@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 const useTradingViewWidget = (
 	scriptURL: string,
@@ -9,6 +9,10 @@ const useTradingViewWidget = (
 	height: number = 600
 ) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
+	const configString = useMemo(
+		() => JSON.stringify(config),
+		[JSON.stringify(config)]
+	);
 
 	// build a proper widget container element (use `class` for innerHTML)
 	const graphDiv = `<div class="tradingview-widget-container__widget" style="width: 100%; height: ${height}px;"></div>`;
@@ -39,7 +43,7 @@ const useTradingViewWidget = (
 				delete containerRef.current.dataset.loaded;
 			}
 		};
-	}, [scriptURL, config, height]);
+	}, [scriptURL, configString, height]);
 
 	return containerRef;
 };

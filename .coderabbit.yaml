@@ -1,6 +1,6 @@
 # Exclude unimportant files/folders from CodeRabbit reviews
-# Use `path filters` (or `path_filters` depending on your CodeRabbit version)
-path filters:
+# Use `path_filters` (underscore) — CodeRabbit expects this key
+path_filters:
   - '!dist/**'
   - '!node_modules/**'
   - '!build/**'
