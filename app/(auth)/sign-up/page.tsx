@@ -21,6 +21,8 @@ const SignUpPage = () => {
 		mode: 'onBlur',
 	});
 
+	console.log('Form Errors:', errors);
+
 	const onSubmit = async (data: SignUpFormData) => {
 		try {
 			console.log('Form Data:', data);
@@ -34,7 +36,7 @@ const SignUpPage = () => {
 			<h1 className="form-title">Sign Up & Personalize</h1>
 			<form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 				<InputField
-					name="Full Name"
+					name="fullName"
 					label="Full Name"
 					placeholder="Enter your full name"
 					register={register}
