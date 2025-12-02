@@ -187,11 +187,8 @@
 	.form-label {
 		@apply text-sm font-medium text-gray-400 mr-1 sm:flex;
 	}
-	/* .form-input {
-		@apply h-12 px-3 py-3 text-white text-base placeholder:text-gray-500 border-gray-600 bg-gray-800 rounded-lg focus:border-yellow-500! focus:ring-0;
-	} */
 	.form-input {
-		@apply h-12 px-3 py-3 text-white text-base placeholder:text-gray-500 border-gray-600 border-2 rounded-lg focus:border-yellow-500! focus:ring-0;
+		@apply h-12 px-3 py-3 text-white text-base placeholder:text-gray-500 border-gray-600 border rounded-lg focus:border-yellow-500!  focus:ring-0;
 	}
 
 	.select-trigger {
