@@ -1,11 +1,11 @@
-# Exclude unimportant files/folders from CodeRabbit reviews
-# Use `path_filters` (underscore) — CodeRabbit expects this key
-path_filters:
-  - '!dist/**'
-  - '!node_modules/**'
-  - '!build/**'
-  - '!.next/**'
-  - '!coverage/**'
+# Path filters to include or exclude specific files/directories
+reviews:
+  path_filters:
+    - '!dist/**'
+    - '!node_modules/**'
+    - '!build/**'
+    - '!.next/**'
+    - '!coverage/**'
 # Examples you can add if needed:
 #  - "!**/*.lock"        # ignore lockfiles
 #  - "!public/assets/**" # ignore large static assets

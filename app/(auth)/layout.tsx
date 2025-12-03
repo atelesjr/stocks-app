@@ -1,8 +1,9 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 interface LayoutAuthProps {
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 const LayoutAuth = ({ children }: LayoutAuthProps) => {
@@ -32,7 +33,7 @@ const LayoutAuth = ({ children }: LayoutAuthProps) => {
 							<cite className="auth-testimonial-author">- Ethan R.</cite>
 							<p className="max-md:text-xs text-gray-500">Retail Investor</p>
 						</div>
-						<div className="flex item-center gap-0.5">
+						<div className="flex items-center gap-0.5">
 							{Array.from({ length: 5 }).map((_, index) => (
 								<Image
 									src="/assets/icons/star.svg"
