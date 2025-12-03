@@ -9,6 +9,7 @@ import {
 	RISK_TOLERANCE_OPTIONS,
 } from '@/lib/constants';
 import { CountrySelectField } from '@/components/forms/CountrySelectField/CountrySelectedField';
+import FooterLink from '@/components/forms/FooterLink/FooterLink';
 
 const SignUpPage = () => {
 	const {
@@ -118,6 +119,11 @@ const SignUpPage = () => {
 				>
 					{isSubmitting ? 'Creating Account' : 'Start Your Investing Journey'}
 				</Button>
+				<FooterLink
+					text="Already have an account?"
+					linkText="Sign in"
+					href="/sign-in"
+				/>
 			</form>
 		</div>
 	);
