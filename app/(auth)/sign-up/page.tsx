@@ -10,8 +10,12 @@ import {
 } from '@/lib/constants';
 import { CountrySelectField } from '@/components/forms/CountrySelectField/CountrySelectedField';
 import FooterLink from '@/components/forms/FooterLink/FooterLink';
+import { useRouter } from 'next/navigation';
+import { signUpWithEmail } from '@/lib/actions/auth.actions';
+import { toast } from 'sonner';
 
 const SignUpPage = () => {
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -34,9 +38,14 @@ const SignUpPage = () => {
 
 	const onSubmit = async (data: SignUpFormData) => {
 		try {
-			console.log('Form Data:', data);
-		} catch (error) {
-			console.error('Error during sign-up:', error);
+			const result = await signUpWithEmail(data);
+			if (result.success) router.push('/');
+		} catch (e) {
+			console.error(e);
+			toast.error('Sign up failed', {
+				description:
+					e instanceof Error ? e.message : 'Failed to create an account.',
+			});
 		}
 	};
 
@@ -50,7 +59,10 @@ const SignUpPage = () => {
 					placeholder="Enter your full name"
 					register={register}
 					error={errors.fullName}
-					validation={{ required: 'Full Name is required', minLength: 2 }}
+					validation={{
+						required: 'Full Name is required',
+						minLength: { value: 2, message: 'Too short' },
+					}}
 				/>
 				<InputField
 					name="email"
@@ -59,9 +71,11 @@ const SignUpPage = () => {
 					register={register}
 					error={errors.email}
 					validation={{
-						required: 'Email name is required',
-						pattern: /^\w+@\w+\.\w+$/,
-						message: 'Email address is required',
+						required: 'Email is required',
+						pattern: {
+							value: /^\w+@\w+\.\w+$/,
+							message: 'Invalid email address',
+						},
 					}}
 				/>
 				<InputField
@@ -71,7 +85,10 @@ const SignUpPage = () => {
 					type="password"
 					register={register}
 					error={errors.password}
-					validation={{ required: 'Password is required', minLength: 8 }}
+					validation={{
+						required: 'Password is required',
+						minLength: { value: 8, message: 'Too short' },
+					}}
 				/>
 
 				<CountrySelectField
