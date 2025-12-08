@@ -35,13 +35,21 @@ export function formatMarketCapValue(marketCapUsd: number): string {
 	return `$${marketCapUsd.toFixed(2)}`; // Below one million, show full USD amount
 }
 
+const formatUTCDate = (date: Date) => {
+	const year = date.getUTCFullYear();
+	const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+	const day = String(date.getUTCDate()).padStart(2, '0');
+	return `${year}-${month}-${day}`;
+};
+
 export const getDateRange = (days: number) => {
 	const toDate = new Date();
 	const fromDate = new Date();
 	fromDate.setDate(toDate.getDate() - days);
+
 	return {
-		to: toDate.toISOString().split('T')[0],
-		from: fromDate.toISOString().split('T')[0],
+		to: formatUTCDate(toDate),
+		from: formatUTCDate(fromDate),
 	};
 };
 
@@ -65,8 +73,8 @@ export const calculateNewsDistribution = (symbolsCount: number) => {
 	} else if (symbolsCount === 3) {
 		itemsPerSymbol = 2; // Exactly 3 symbols, 2 news each = 6 total
 	} else {
-		itemsPerSymbol = 1; // Many symbols, 1 news each
-		targetNewsCount = 6; // Don't exceed 6 total
+		itemsPerSymbol = Math.max(1, Math.floor(6 / symbolsCount)); // 1 per symbol, capped at 6 total
+		targetNewsCount = Math.min(6, symbolsCount * itemsPerSymbol);
 	}
 
 	return { itemsPerSymbol, targetNewsCount };
@@ -86,18 +94,24 @@ export const formatArticle = (
 	isCompanyNews: boolean,
 	symbol?: string,
 	index: number = 0
-) => ({
-	id: isCompanyNews ? Date.now() + Math.random() : article.id + index,
-	headline: article.headline!.trim(),
-	summary:
-		article.summary!.trim().substring(0, isCompanyNews ? 200 : 150) + '...',
-	source: article.source || (isCompanyNews ? 'Company News' : 'Market News'),
-	url: article.url!,
-	datetime: article.datetime!,
-	image: article.image || '',
-	category: isCompanyNews ? 'company' : article.category || 'general',
-	related: isCompanyNews ? symbol! : article.related || '',
-});
+) => {
+	if (isCompanyNews && !symbol) {
+		throw new Error('symbol is required when isCompanyNews is true');
+	}
+
+	return {
+		id: isCompanyNews ? Date.now() + Math.random() : article.id + index,
+		headline: article.headline!.trim(),
+		summary:
+			article.summary!.trim().substring(0, isCompanyNews ? 200 : 150) + '...',
+		source: article.source || (isCompanyNews ? 'Company News' : 'Market News'),
+		url: article.url!,
+		datetime: article.datetime!,
+		image: article.image || '',
+		category: isCompanyNews ? 'company' : article.category || 'general',
+		related: isCompanyNews ? symbol! : article.related || '',
+	};
+};
 
 export const formatChangePercent = (changePercent?: number) => {
 	if (changePercent === null || changePercent === undefined) return '';
