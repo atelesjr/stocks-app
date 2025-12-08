@@ -12,17 +12,20 @@ import { Button } from '../ui/button';
 import UserAvatar from '../Avatar/Avatar';
 import { LogOut } from 'lucide-react';
 import NavItems from '../NavItems/NavItems';
+import { signOut } from '@/lib/actions/auth.actions';
 
-const UserDropdown = () => {
+interface UserDropdownProps {
+	user: User;
+	initialStocks: StockWithWatchlistStatus[];
+}
+
+const UserDropdown = ({ user }: UserDropdownProps) => {
 	const router = useRouter();
 
 	const handleSignOut = async () => {
-		// Perform sign-out logic here (e.g., clear auth tokens, update state)
-		// After sign-out, redirect to the homepage
+		await signOut();
 		router.push('/sign-in');
 	};
-
-	const user = { name: 'John Doe', email: 'contact@example.com' }; // Replace with actual user data
 
 	return (
 		<DropdownMenu>

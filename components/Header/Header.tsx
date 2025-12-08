@@ -2,8 +2,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavItems from '../NavItems/NavItems';
 import UserDropdown from '../UserDropdown/UserDropdown';
+import { searchStocks } from '@/lib/actions/finnhub.actions';
 
-const Header = () => {
+interface HeaderProps {
+	user: User;
+}
+
+const Header = async ({ user }: HeaderProps) => {
+	const initialStocks = await searchStocks();
 	return (
 		<header className="sticky top-0 header">
 			<div className="container header-wrapper">
@@ -20,7 +26,7 @@ const Header = () => {
 					<NavItems />
 				</nav>
 
-				<UserDropdown />
+				<UserDropdown user={user} initialStocks={initialStocks} />
 			</div>
 		</header>
 	);
