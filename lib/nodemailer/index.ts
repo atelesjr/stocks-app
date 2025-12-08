@@ -4,17 +4,18 @@ import {
 	NEWS_SUMMARY_EMAIL_TEMPLATE,
 } from '@/lib/nodemailer/templates';
 
-export const transporter = nodemailer.createTransport({
-	service: 'gmail',
+const transporter = nodemailer.createTransport({
+	host: 'smtp.gmail.com',
+	port: 465,
+	secure: true,
 	auth: {
-		user: process.env.NODEMAILER_EMAIL!,
-		pass: process.env.NODEMAILER_PASSWORD!,
+		user: process.env.NODEMAILER_EMAIL,
+		pass: process.env.NODEMAILER_PASSWORD,
+	},
+	tls: {
+		rejectUnauthorized: process.env.NODE_ENV !== 'development',
 	},
 });
-
-// add near transporter creation for debug (temporary)
-console.log('NODEMAILER_EMAIL present?', !!process.env.NODEMAILER_EMAIL);
-console.log('NODEMAILER_PASSWORD present?', !!process.env.NODEMAILER_PASSWORD);
 
 transporter
 	.verify()
