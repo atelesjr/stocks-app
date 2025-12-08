@@ -19,7 +19,7 @@ interface UserDropdownProps {
 	initialStocks: StockWithWatchlistStatus[];
 }
 
-const UserDropdown = ({ user, initialStocks }: UserDropdownProps) => {
+const UserDropdown = ({ user }: UserDropdownProps) => {
 	const router = useRouter();
 
 	const handleSignOut = async () => {

@@ -74,7 +74,9 @@ export const calculateNewsDistribution = (symbolsCount: number) => {
 
 // Check for required article fields
 export const validateArticle = (article: RawNewsArticle) =>
-	article.headline && article.summary && article.url && article.datetime;
+	Boolean(
+		article.headline && article.summary && article.url && article.datetime
+	);
 
 // Get today's date string in YYYY-MM-DD format
 export const getTodayString = () => new Date().toISOString().split('T')[0];
@@ -98,13 +100,20 @@ export const formatArticle = (
 });
 
 export const formatChangePercent = (changePercent?: number) => {
-	if (!changePercent) return '';
+	if (changePercent === null || changePercent === undefined) return '';
 	const sign = changePercent > 0 ? '+' : '';
 	return `${sign}${changePercent.toFixed(2)}%`;
 };
 
 export const getChangeColorClass = (changePercent?: number) => {
-	if (!changePercent) return 'text-gray-400';
+	if (changePercent === null || changePercent === undefined) {
+		return 'text-gray-400';
+	}
+
+	if (changePercent === 0) {
+		return 'text-gray-400';
+	}
+
 	return changePercent > 0 ? 'text-green-500' : 'text-red-500';
 };
 
