@@ -61,7 +61,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
 	{ id: 'daily-news-summary' },
 	[
 		{ event: 'app/send.daily.news' },
-		{ cron: '00 10 * * *', timezone: 'America/Sao_Paulo' },
+		{ cron: '0 12 * * *', timezone: 'America/Sao_Paulo' },
 	],
 	async ({ step }) => {
 		console.log(
