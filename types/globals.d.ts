@@ -222,6 +222,13 @@ declare global {
 		threshold: number;
 		changePercent?: number;
 	};
+
+	interface UserForNewsEmail {
+		id: string;
+		email: string;
+		name?: string | null;
+		subscribed: boolean;
+	}
 }
 
 export {};
