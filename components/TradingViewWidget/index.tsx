@@ -1,6 +1,6 @@
 'use client';
 
-import useTradingViewWidget from '@/hooks/useTradingViewWidget/useTradingViewWidget';
+import useTradingViewWidget from '@/hooks/useTradingViewWidget';
 // TradingViewWidget.jsx
 import React, { memo } from 'react';
 
@@ -25,7 +25,7 @@ const TradingViewWidget = ({
 		<div
 			className={`tradingview-widget-container ${className ?? ''}`}
 			ref={containerRef}
-			style={{ height: '100%', width: '100%' }}
+			style={{ height: `${height}px`, width: '100%' }}
 		>
 			{title && <h2>{title}</h2>}
 			<div
