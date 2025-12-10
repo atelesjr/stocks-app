@@ -1,6 +1,6 @@
 'use client';
-import FooterLink from '@/components/forms/FooterLink/FooterLink';
-import InputField from '@/components/forms/InputField/InputField';
+import FooterLink from '@/components/forms/FooterLink';
+import InputField from '@/components/forms/InputField';
 import { Button } from '@/components/ui/button';
 import { signInWithEmail } from '@/lib/actions/auth.actions';
 import { useRouter } from 'next/navigation';

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
-import UserAvatar from '../Avatar/Avatar';
+import UserAvatar from '../Avatar';
 import { LogOut } from 'lucide-react';
 import NavItems from '../NavItems/NavItems';
 import { signOut } from '@/lib/actions/auth.actions';
@@ -37,7 +37,8 @@ const UserDropdown = ({ user, initialStocks }: UserDropdownProps) => {
 					<UserAvatar user={user} />
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="text-gray-400">
+
+			<DropdownMenuContent className="texts-gray-400">
 				<DropdownMenuLabel>
 					<div className="flex relative items-center gap-3 py-2">
 						<UserAvatar user={user} menuContent />
