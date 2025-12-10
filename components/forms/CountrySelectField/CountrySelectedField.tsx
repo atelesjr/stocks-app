@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
-import CountrySelect from './CountrySelect';
+import CountrySelect from '.';
 
 export const CountrySelectField = ({
 	name,
