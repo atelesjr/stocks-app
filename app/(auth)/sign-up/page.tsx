@@ -34,8 +34,6 @@ const SignUpPage = () => {
 		mode: 'onBlur',
 	});
 
-	console.log('Form Errors:', errors);
-
 	const onSubmit = async (data: SignUpFormData) => {
 		try {
 			const result = await signUpWithEmail(data);
