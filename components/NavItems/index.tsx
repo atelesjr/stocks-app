@@ -3,7 +3,7 @@
 import { NAV_ITEMS } from '@/lib/constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import SearchCommand from '../SearchCommand/SearchCommand';
+import SearchCommand from '../SearchCommand';
 
 interface NavItemsProps {
 	initialStocks: StockWithWatchlistStatus[];

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import NavItems from '../NavItems/NavItems';
-import UserDropdown from '../UserDropdown/UserDropdown';
+import NavItems from '../NavItems';
+import UserDropdown from '../UserDropdown';
 import { searchStocks } from '@/lib/actions/finnhub.actions';
 
 interface HeaderProps {

@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import UserAvatar from '../Avatar';
 import { LogOut } from 'lucide-react';
-import NavItems from '../NavItems/NavItems';
+import NavItems from '../NavItems';
 import { signOut } from '@/lib/actions/auth.actions';
 
 interface UserDropdownProps {
@@ -38,7 +38,7 @@ const UserDropdown = ({ user, initialStocks }: UserDropdownProps) => {
 				</Button>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent className="texts-gray-400">
+			<DropdownMenuContent className="text-gray-400">
 				<DropdownMenuLabel>
 					<div className="flex relative items-center gap-3 py-2">
 						<UserAvatar user={user} menuContent />
