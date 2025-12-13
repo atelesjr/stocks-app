@@ -18,7 +18,22 @@ if (!cached) {
 export const connectToDatabase = async (): Promise<typeof mongoose> => {
 	if (process.env.SKIP_DB === 'true') {
 		console.log('SKIP_DB=true — skipping MongoDB connection (build-time)');
-		return mongoose;
+		const fakeDb = {
+			collection: (_name: string) => ({
+				findOne: async () => null,
+				find: () => ({ toArray: async () => [] }),
+				insertOne: async () => ({}),
+				updateOne: async () => ({}),
+				deleteOne: async () => ({}),
+				createIndex: async () => undefined,
+			}),
+		};
+
+		const fakeMongoose = {
+			connection: { db: fakeDb },
+		} as unknown as typeof mongoose;
+
+		return fakeMongoose;
 	}
 
 	if (!MONGODB_URI) {
