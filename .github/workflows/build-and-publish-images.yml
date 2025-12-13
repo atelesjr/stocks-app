@@ -26,6 +26,8 @@ jobs:
         run: npm ci
 
       - name: Build Next app
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: npm run build
 
       - name: Login to GitHub Container Registry

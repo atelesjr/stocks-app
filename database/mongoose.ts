@@ -17,7 +17,7 @@ if (!cached) {
 
 export const connectToDatabase = async (): Promise<typeof mongoose> => {
 	if (!MONGODB_URI) {
-		throw new Error('MONOGODB_URI must be defined');
+		throw new Error('MONGODB_URI must be defined');
 	}
 
 	if (cached.conn) {
