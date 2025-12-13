@@ -16,6 +16,11 @@ if (!cached) {
 }
 
 export const connectToDatabase = async (): Promise<typeof mongoose> => {
+	if (process.env.SKIP_DB === 'true') {
+		console.log('SKIP_DB=true — skipping MongoDB connection (build-time)');
+		return mongoose;
+	}
+
 	if (!MONGODB_URI) {
 		throw new Error('MONGODB_URI must be defined');
 	}

@@ -29,6 +29,7 @@ jobs:
       - name: Build Next app
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          SKIP_DB: 'true'
         run: npm run build
 
       - name: Login to GitHub Container Registry
