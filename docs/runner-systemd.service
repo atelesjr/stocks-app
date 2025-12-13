@@ -1,0 +1,24 @@
+[Unit]
+Description=Inngest Runner for stocks-app
+After=network.target
+
+[Service]
+Type=simple
+User=inngest
+Group=inngest
+WorkingDirectory=/opt/stocks-app
+EnvironmentFile=/etc/stocks-app/env.production
+ExecStart=/usr/bin/npx inngest run -u ${INNGEST_URL}
+Restart=always
+RestartSec=5
+KillMode=process
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+# Notes:
+# - Create a system user `inngest` and place your app checkout under /opt/stocks-app
+# - Put production env vars in /etc/stocks-app/env.production (export KEY=VALUE lines)
+# - Ensure node and npx are available on the PATH for the service user
+# - Use `systemctl daemon-reload` and `systemctl enable --now runner.service` to start
