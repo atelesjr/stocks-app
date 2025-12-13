@@ -3,6 +3,8 @@
 
 FROM node:20-alpine AS builder
 WORKDIR /app
+ARG SKIP_DB=false
+ENV SKIP_DB=${SKIP_DB}
 
 # Install dependencies (use package-lock if present)
 COPY package*.json ./

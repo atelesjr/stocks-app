@@ -44,6 +44,8 @@ jobs:
         with:
           context: .
           file: Dockerfile
+          build-args: |
+            SKIP_DB=true
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/stocks-app-next:latest
