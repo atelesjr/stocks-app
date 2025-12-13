@@ -69,4 +69,4 @@ jobs:
             echo "INNGEST_API_KEY not set — skipping Inngest deploy"
             exit 0
           fi
-          npx inngest deploy
+          npx inngest-cli@latest deploy
