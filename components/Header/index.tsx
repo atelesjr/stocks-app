@@ -22,6 +22,7 @@ const Header = async ({ user }: HeaderProps) => {
 						className="h-8 w-auto cursor-pointer"
 					/>
 				</Link>
+
 				<nav className="hidden sm:block">
 					<NavItems initialStocks={initialStocks} />
 				</nav>
