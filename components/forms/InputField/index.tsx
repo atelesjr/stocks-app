@@ -9,7 +9,6 @@ const InputField = ({
 	error,
 	validation,
 	disabled,
-	value,
 }: FormInputProps) => {
 	return (
 		<div className="flex flex-col space-y-2">

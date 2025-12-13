@@ -17,10 +17,21 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-transporter
-	.verify()
-	.then(() => console.log('Transporter verify: OK'))
-	.catch((err) => console.error('Transporter verify failed:', err));
+// NOTE: don't run `.verify()` at module load time — Next.js runs module code
+// during production `next build` which can trigger network calls during the
+// build phase and fail (see: self-signed certificate in certificate chain).
+// Export a helper so verification can be run explicitly in a dev/devtools
+// context when desirable.
+export async function verifyTransporter(): Promise<boolean> {
+	try {
+		await transporter.verify();
+		console.log('Transporter verify: OK');
+		return true;
+	} catch (err) {
+		console.error('Transporter verify failed:', err);
+		return false;
+	}
+}
 
 export const sendWelcomeEmail = async ({
 	email,

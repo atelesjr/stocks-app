@@ -1,4 +1,26 @@
 {
+  // Map GitHub Actions workflow files to the official schema so expressions like
+  // `${{ secrets.X }}` are validated correctly by the YAML extension.
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "./.github/workflows/*"
+  },
+  // Keep YAML validation enabled
+  "yaml.validate": true,
+  // Optional: add the GitHub Actions file association for editor features
+  "files.associations": {
+    "**/.github/workflows/*.yml": "yaml",
+    "**/.github/workflows/*.yaml": "yaml"
+  }
+}
+{
+  // Treat GitHub Actions workflow YAML files as plain text in VS Code
+  // to disable YAML validation/linting for files under .github/workflows.
+  "files.associations": {
+    "**/.github/workflows/*.yml": "plaintext",
+    "**/.github/workflows/*.yaml": "plaintext"
+  }
+}
+{
 	"cSpell.words": [
 		"FINNHUB",
 		"inngest",

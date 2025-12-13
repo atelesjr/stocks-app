@@ -1,0 +1,36 @@
+# Production-ready Dockerfile for self-hosting an Inngest runner
+# This image installs only production dependencies and runs the Inngest
+# runner process. Provide the runtime environment variables (MONGODB_URI,
+# INNGEST_URL, SENDGRID_API_KEY, etc.) at container start.
+
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Install production dependencies only
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copy the application source (functions and runtime code)
+COPY . .
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+# Create a non-root user for better security
+RUN addgroup -S app && adduser -S app -G app
+
+# Copy built app + production node_modules from builder
+COPY --from=builder /app .
+
+# Ensure files are owned by non-root user
+RUN chown -R app:app /app
+USER app
+
+# Default Inngest target URL (point to your Next.js /api/inngest endpoint)
+ENV INNGEST_URL=http://next:3000/api/inngest
+
+# Run the Inngest production runner. The exact CLI subcommand may vary
+# depending on your Inngest version; override the command at runtime if
+# necessary by passing a different ENTRYPOINT/CMD.
+CMD ["sh","-c","npx inngest run -u ${INNGEST_URL}"]

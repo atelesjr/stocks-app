@@ -1,0 +1,13 @@
+FROM node:20-alpine
+WORKDIR /app
+
+# Install only what's needed to run the CLI
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# The Inngest CLI will be invoked with npx so we don't need to copy source
+ENV INNGEST_URL=http://next:3000/api/inngest
+
+# Default command: run the inngest dev runner and point it to the Next server
+# NOTE: in production you may prefer Inngest Cloud or a proper production runner.
+CMD ["sh","-c","npx inngest dev -u ${INNGEST_URL} --debug"]
