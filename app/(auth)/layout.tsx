@@ -71,15 +71,17 @@ const LayoutAuth = async ({ children }: LayoutAuthProps) => {
 			</main>
 		);
 	} catch (err) {
-		// Log the error and digest so we can inspect server logs
-		// eslint-disable-next-line no-console
-		console.error('Server render auth (auth layout) error:', err, 'digest=', (err as any)?.digest);
+		// Extract digest safely without using `any`
+		type ErrWithDigest = { digest?: string };
+		const digest = typeof err === 'object' && err !== null && 'digest' in err ? (err as ErrWithDigest).digest : undefined;
+
+		console.error('Server render auth (auth layout) error:', err, 'digest=', digest);
 		return (
 			<main className="auth-layout">
 				<div className="container py-10">
 					<h1 className="text-2xl font-bold">Server error</h1>
 					<p className="mt-4">We were unable to render the authentication page. The error has been logged.</p>
-					<p className="mt-2 text-sm text-gray-500">Error digest: {(err as any)?.digest ?? 'N/A'}</p>
+					<p className="mt-2 text-sm text-gray-500">Error digest: {digest ?? 'N/A'}</p>
 				</div>
 			</main>
 		);

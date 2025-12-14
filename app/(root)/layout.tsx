@@ -30,9 +30,11 @@ const Layout = async ({ children }: LayoutRootProps) => {
 			</main>
 		);
 	} catch (err) {
-		// Log the error and digest to server logs for debugging
-		// eslint-disable-next-line no-console
-		console.error('Server render auth error:', err, 'digest=', (err as any)?.digest);
+		// Extract digest safely without using `any`
+		type ErrWithDigest = { digest?: string };
+		const digest = typeof err === 'object' && err !== null && 'digest' in err ? (err as ErrWithDigest).digest : undefined;
+
+		console.error('Server render auth error:', err, 'digest=', digest);
 
 		// Render a simple fallback so the client doesn't show a blank/black screen
 		return (
@@ -40,7 +42,7 @@ const Layout = async ({ children }: LayoutRootProps) => {
 				<div className="container py-10">
 					<h1 className="text-2xl font-bold">Server error</h1>
 					<p className="mt-4">We were unable to verify your session. The error has been logged.</p>
-					<p className="mt-2 text-sm text-gray-500">Error digest: {(err as any)?.digest ?? 'N/A'}</p>
+					<p className="mt-2 text-sm text-gray-500">Error digest: {digest ?? 'N/A'}</p>
 				</div>
 			</main>
 		);
