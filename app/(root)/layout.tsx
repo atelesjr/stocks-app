@@ -7,6 +7,8 @@ interface LayoutRootProps {
 	children: React.ReactNode;
 }
 
+export const dynamic = 'force-dynamic';
+
 const Layout = async ({ children }: LayoutRootProps) => {
 	const auth = await getAuth();
 	const session = await auth.api.getSession({ headers: await headers() });

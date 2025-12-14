@@ -9,6 +9,8 @@ interface LayoutAuthProps {
 	children: ReactNode;
 }
 
+export const dynamic = 'force-dynamic';
+
 const LayoutAuth = async ({ children }: LayoutAuthProps) => {
 	const auth = await getAuth();
 	const session = await auth.api.getSession({ headers: await headers() });
