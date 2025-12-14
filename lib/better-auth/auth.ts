@@ -31,4 +31,6 @@ export const getAuth = async () => {
 	return authInstance;
 };
 
-export const auth = await getAuth();
+// NOTE: Do not initialize `auth` at module load time (top-level await).
+// Server components may be evaluated at build-time; call `getAuth()` at
+// runtime where needed to ensure a real MongoDB connection is used.

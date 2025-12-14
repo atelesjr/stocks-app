@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { headers } from 'next/headers';
-import { auth } from '@/lib/better-auth/auth';
+import { getAuth } from '@/lib/better-auth/auth';
 import { redirect } from 'next/navigation';
 
 interface LayoutAuthProps {
@@ -10,6 +10,7 @@ interface LayoutAuthProps {
 }
 
 const LayoutAuth = async ({ children }: LayoutAuthProps) => {
+	const auth = await getAuth();
 	const session = await auth.api.getSession({ headers: await headers() });
 
 	if (session?.user) redirect('/');
