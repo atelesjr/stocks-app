@@ -31,6 +31,10 @@ export async function getNews(
 	symbols?: string[]
 ): Promise<MarketNewsArticle[]> {
 	try {
+		if (process.env.SKIP_EXTERNAL === 'true') {
+			console.log('SKIP_EXTERNAL=true — skipping Finnhub external API calls (build-time)');
+			return [];
+		}
 		const range = getDateRange(5);
 		const token = process.env.FINNHUB_API_KEY ?? NEXT_PUBLIC_FINNHUB_API_KEY;
 		if (!token) {
@@ -119,6 +123,10 @@ interface FinnhubProfile {
 export const searchStocks = cache(
 	async (query?: string): Promise<StockWithWatchlistStatus[]> => {
 		try {
+			if (process.env.SKIP_EXTERNAL === 'true') {
+				console.log('SKIP_EXTERNAL=true — skipping Finnhub search (build-time)');
+				return [];
+			}
 			const token = process.env.FINNHUB_API_KEY ?? NEXT_PUBLIC_FINNHUB_API_KEY;
 			if (!token) {
 				// If no token, log and return empty to avoid throwing per requirements
