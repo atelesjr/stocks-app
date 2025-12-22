@@ -16,13 +16,10 @@ if (!cached) {
 }
 
 export const connectToDatabase = async (): Promise<typeof mongoose> => {
-	// Only skip DB when `SKIP_DB=true` AND there is no `MONGODB_URI` available.
-	// This lets production runtime (where MONGODB_URI is set) connect to the
-	// real DB even if SKIP_DB was used for build/preview steps.
-	if (process.env.SKIP_DB === 'true' && !process.env.MONGODB_URI) {
-		console.log('SKIP_DB=true and no MONGODB_URI — skipping MongoDB connection (build-time)');
+	if (process.env.SKIP_DB === 'true') {
+		console.log('SKIP_DB=true — skipping MongoDB connection (build-time)');
 		const fakeDb = {
-			collection: (_name: string) => ({
+			collection: () => ({
 				findOne: async () => null,
 				find: () => ({ toArray: async () => [] }),
 				insertOne: async () => ({}),
@@ -37,10 +34,6 @@ export const connectToDatabase = async (): Promise<typeof mongoose> => {
 		} as unknown as typeof mongoose;
 
 		return fakeMongoose;
-	}
-
-	if (process.env.SKIP_DB === 'true' && process.env.MONGODB_URI) {
-		console.log('SKIP_DB=true but MONGODB_URI present — overriding SKIP_DB to connect to MongoDB (runtime)');
 	}
 
 	if (!MONGODB_URI) {
